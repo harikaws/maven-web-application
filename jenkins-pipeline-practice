@@ -11,7 +11,7 @@ pipeline {
   stage('codeCheckout') {
     steps {
       // One or more steps need to be included within the steps block.
-      git credentialsId: 'GIT', url: 'https://github.com/harikaws/maven-web-application.git'
+      git branch: 'development', credentialsId: 'GIT', url: 'https://github.com/harikaws/maven-web-application.git'
     }
   }
   stage('codeBuild') {

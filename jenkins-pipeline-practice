@@ -1,0 +1,36 @@
+pipeline {
+
+    agent any
+    tools {
+  maven 'maven3.8.6'
+}
+
+
+    
+  stages {
+  stage('codeCheckout') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      git credentialsId: 'GIT', url: 'https://github.com/harikaws/maven-web-application.git'
+    }
+  }
+  stage('codeBuild') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      sh "mvn clean package"
+    }
+	}
+  stage('deployCodetoTomcatServer') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      sshagent(['5e4259a7-76de-4dff-8dc0-2a728ead197e']) {
+    // some block
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.11.53:/opt/tomcat/webapps/"
+      }
+    }
+
+}
+
+
+}
+}

@@ -4,6 +4,9 @@ pipeline {
     tools {
   maven 'maven3.8.6'
 }
+parameters {
+  string defaultValue: '2', name: 'buildNumber'
+}
 
 
     
